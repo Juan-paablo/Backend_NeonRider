@@ -1,0 +1,24 @@
+{
+  "name": "neonrider-300h",
+  "version": "1.0.0",
+  "description": "Proyecto 300H",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node --watch index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielrativa/NEONRIDER-300H.git"
+  },
+  "author": "Valentina, Juan, Daniel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielrativa/NEONRIDER-300H/issues"
+  },
+  "homepage": "https://github.com/danielrativa/NEONRIDER-300H#readme",
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongoose": "^8.17.0"
+  }
+}
