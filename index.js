@@ -1,5 +1,6 @@
 const express = require('express')
 const connetDB = require('./config/db')
+const router = require('./routes/router')
 const app = express()
 require('dotenv').config()
 const PORT = process.env.PORT
@@ -9,6 +10,7 @@ app.use('/api/health', (req,res) =>{
 })
 
 app.use(express.json())
+app.use('/api', router)
 
 connetDB()
 app.listen(PORT, ()=> {    
