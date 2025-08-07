@@ -1,12 +1,12 @@
 const express = require('express')
 const connetDB = require('./config/db')
-const router = require('./routes/routes')
+const routes = require('./routes/router')
 require('dotenv').config()
 
 const app = express()
 app.use(express.json())
 const PORT = process.env.PORT
-app.use('/api', router )
+app.use('/api', routes )
 
 
 app.use('/api/health', (req,res) =>{
