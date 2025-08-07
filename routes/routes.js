@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const { getCreateProduct, getOneCreateProduct, createProduct, updateProduct, deleteProduct } = require('../controllers/creacion_productos.controller')
+const { getUsers, getOneUser, createUser, updateUser, deleteUser } = require('../controllers/user.controller')
+const { login } = require('../controllers/login.controller')
+const { middlewareJWT } = require('../middleware/jwt')
+const { getClients, registerClient } = require('../controllers/registro.controller')
 
 
 
@@ -12,10 +16,6 @@ router.delete('/product/:id', deleteProduct)
 
 
 
-const { getUsers, getOneUser, createUser, updateUser, deleteUser } = require('../controllers/user.controller')
-const { login } = require('../controllers/login.controller')
-const { middlewareJWT } = require('../middleware/jwt')
-const { getClients, registerClient } = require('../controllers/registro.controller')
 
 
 // ------------------- Rutas de users
@@ -34,4 +34,5 @@ router.post('/login', login)
 
 router.get('/clients', middlewareJWT, getClients);
 router.post('/registerClient', registerClient);
+
 module.exports = router
