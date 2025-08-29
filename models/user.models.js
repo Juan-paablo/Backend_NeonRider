@@ -1,17 +1,17 @@
 const mongoose = require ('mongoose')
 const userSchema = mongoose.Schema({
-    nombre:{
-        type: String,
-        required: true,
-        minlenght: 3,
-        maxlenght: 20,       
-    },
-    apellido:{
-        type: String,
-        required: true,
-        minlenght: 3,
-        maxlenght: 20,
-    },
+    // nombre:{
+    //     type: String,
+    //     required: true,
+    //     minlenght: 3,
+    //     maxlenght: 20,       
+    // },
+    // apellido:{
+    //     type: String,
+    //     required: true,
+    //     minlenght: 3,
+    //     maxlenght: 20,
+    // },
     correo:{
         type: String,
         required: true,
@@ -33,9 +33,7 @@ exports.userModel = mongoose.model('user', userSchema)
 
 /*
 {
-"nombre":"Carlos",
-"apellido":"Martinez"
 "correo": carlos@gmail.com
-"contraseña": 
+"password": 
 }
 */
