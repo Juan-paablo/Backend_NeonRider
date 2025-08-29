@@ -7,7 +7,7 @@ exports.login = async (req, res) =>{
         let user = await userModel.findOne({correo:data.correo})
         if (user) {
             if (data.password == user.password) {
-                let token = jwt.sign({correo:user.correo , nombre:user.nombre}, process.env.SECRET_JWT_KEY, {expiresIn:"1d"})
+                let token = jwt.sign({correo:user.correo , nombre:user._id}, process.env.SECRET_JWT_KEY, {expiresIn:"1d"})
                 res.status(200).json(token)
             } else {
                 return res.status(401).json({error:"Contraseña invalida"})

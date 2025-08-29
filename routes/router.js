@@ -6,7 +6,6 @@ const { getCreateProduct, getOneCreateProduct, createProduct, updateProduct, del
 const { getUsers, getOneUser, createUser, updateUser, deleteUser } = require('../controllers/user.controller')
 const { login } = require('../controllers/login.controller')
 const { middlewareJWT } = require('../middleware/jwt')
-const { getClients, registerClient } = require('../controllers/registro.controller')
 const router = express.Router()
 
 //------- RUTAS CAMBIOS Y DEVOLUCIONES ------> 
@@ -30,11 +29,7 @@ router.post('/createExtras', createExtras)
 router.put('/updateExtras/:id', updateExtras)
 router.delete('/deleteExtras/:id', deleteExtras)
 
-
-
-
-
-
+//------- RUTAS PRODUCTO ------> 
 
 router.post('/product', createProduct )
 router.get('/products', getCreateProduct)
@@ -44,30 +39,17 @@ router.delete('/product/:id', deleteProduct)
 
 
 
-
-
 // ------------------- Rutas de users
 
-router.get('/users', middlewareJWT, getUsers)
-router.get('/user/:id', middlewareJWT, getOneUser)
-router.post('/createUser', middlewareJWT, createUser)
-router.put('/updateUser/:id', middlewareJWT, updateUser)
-router.delete('/deleteUser/:id', middlewareJWT, deleteUser )
+router.get('/users', getUsers)
+router.get('/user/:id', getOneUser)
+router.post('/createUser', createUser)
+router.put('/updateUser/:id', updateUser)
+router.delete('/deleteUser/:id', deleteUser )
 
 // -------------------Login
 
 router.post('/login', login)
-
-//----------------------- Registro de clientes
-
-router.get('/clients', middlewareJWT, getClients);
-router.post('/registerClient', registerClient);
-
-
-
-
-
-
 
 
 module.exports = router

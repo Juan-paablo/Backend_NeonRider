@@ -1,59 +1,64 @@
-const { especificacionesModel } = require("../models/especificaciones_producto.model")
+const { especificacionesModel } = require("../models/especificaciones_producto.model");
 
 exports.getEspecificaciones = async (req, res) => {
     try {
-        let data = await especificacionesModel.find()
-        res.json(data)
+        const data = await especificacionesModel.find();
+        res.status(200).json(data);
     } catch (error) {
-        res.json(error)
+        res.status(500).json({ error: error.message });
     }
-}
+};
 
 exports.getOneEspecificaciones = async (req, res) => {
     try {
-        let id = req.params.id
-        let especificaciones = await especificacionesModel.findById(id)
-        res.json(especificaciones)
+        const id = req.params.id;
+        const especificaciones = await especificacionesModel.findById(id);
+        if (!especificaciones) {
+            return res.status(404).json({ error: "Especificación no encontrada" });
+        }
+        res.status(200).json(especificaciones);
     } catch (error) {
-        res.json(error)
+        res.status(500).json({ error: error.message });
     }
-}
+};
 
 exports.createEspecificaciones = async (req, res) => {
     try {
-        let body = req.body
-        let newEspecificaciones = new especificacionesModel(body)
-        let guardado = await newEspecificaciones.save()
-        res.json(guardado)
+        const body = req.body;
+        const newEspecificaciones = new especificacionesModel(body);
+        const guardado = await newEspecificaciones.save();
+        res.status(201).json(guardado);
     } catch (error) {
-        res.json(error)
+        res.status(400).json({ error: error.message });
     }
-}
+};
 
 exports.updateEspecificaciones = async (req, res) => {
     try {
-        let id = req.params.id
-        let data = req.body
-        let busqueda = await especificacionesModel.findById(id)
+        const id = req.params.id;
+        const data = req.body;
+        const busqueda = await especificacionesModel.findById(id);
         if (!busqueda) {
-            return res.json({error: "Solicitud no encontrada"})
-        } 
-        let actualizado = await especificacionesModel.updateOne({_id:id},{$set:data})
-        res.json(actualizado)
+            return res.status(404).json({ error: "Especificación no encontrada" });
+        }
+        await especificacionesModel.updateOne({ _id: id }, { $set: data });
+        const actualizado = await especificacionesModel.findById(id);
+        res.status(200).json(actualizado);
     } catch (error) {
-        res.json(error)
+        res.status(400).json({ error: error.message });
     }
-}
+};
 
 exports.deleteEspecificaciones = async (req, res) => {
     try {
-        let id = req.params.id
-        let borrar = await especificacionesModel.findById(id)
+        const id = req.params.id;
+        const borrar = await especificacionesModel.findById(id);
         if (!borrar) {
-            return res.json({error: "Solicitud no encontrada"})
-        } 
-        let eliminado = await especificacionesModel.deleteOne({_id:id})
+            return res.status(404).json({ error: "Especificación no encontrada" });
+        }
+        await especificacionesModel.deleteOne({ _id: id });
+        res.status(204).send();
     } catch (error) {
-        res.json(error)
+        res.status(500).json({ error: error.message });
     }
-}
+};

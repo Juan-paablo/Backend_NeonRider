@@ -7,7 +7,7 @@ const cambiosSchema = mongoose.Schema({
         length: 10
     },
     userId: {
-        
+        type:mongoose.Schema.Types.ObjectId, ref:'user',
     },
     compraId:{
         type: String,

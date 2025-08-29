@@ -1,59 +1,64 @@
-const { extrasModel } = require("../models/extras_producto.model")
+const { extrasModel } = require("../models/extras_producto.model");
 
 exports.getExtras = async (req, res) => {
     try {
-        let data = await extrasModel.find()
-        res.json(data)
+        const data = await extrasModel.find();
+        res.status(200).json(data);
     } catch (error) {
-        res.json(error)
+        res.status(500).json({ error: error.message });
     }
-}
+};
 
 exports.getOneExtras = async (req, res) => {
     try {
-        let id = req.params.id
-        let extrax = await extrasModel.findById(id)
-        res.json(extras)
+        const id = req.params.id;
+        const extras = await extrasModel.findById(id);
+        if (!extras) {
+            return res.status(404).json({ error: "Extra no encontrado" });
+        }
+        res.status(200).json(extras);
     } catch (error) {
-        res.json(error)
+        res.status(500).json({ error: error.message });
     }
-}
+};
 
 exports.createExtras = async (req, res) => {
     try {
-        let body = req.body
-        let newExtras = new extrasModel(body)
-        let guardado = await newExtras.save()
-        res.json(guardado)
+        const body = req.body;
+        const newExtras = new extrasModel(body);
+        const guardado = await newExtras.save();
+        res.status(201).json(guardado);
     } catch (error) {
-        res.json(error)
+        res.status(400).json({ error: error.message });
     }
-}
+};
 
 exports.updateExtras = async (req, res) => {
     try {
-        let id = req.params.id
-        let data = req.body
-        let busqueda = await extrasModel.findById(id)
+        const id = req.params.id;
+        const data = req.body;
+        const busqueda = await extrasModel.findById(id);
         if (!busqueda) {
-            return res.json({error: "Solicitud no encontrada"})
-        } 
-        let actualizado = await extrasModel.updateOne({_id:id},{$set:data})
-        res.json(actualizado)
+            return res.status(404).json({ error: "Extra no encontrado" });
+        }
+        await extrasModel.updateOne({ _id: id }, { $set: data });
+        const actualizado = await extrasModel.findById(id);
+        res.status(200).json(actualizado);
     } catch (error) {
-        res.json(error)
+        res.status(400).json({ error: error.message });
     }
-}
+};
 
 exports.deleteExtras = async (req, res) => {
     try {
-        let id = req.params.id
-        let borrar = await extrasModel.findById(id)
+        const id = req.params.id;
+        const borrar = await extrasModel.findById(id);
         if (!borrar) {
-            return res.json({error: "Solicitud no encontrada"})
-        } 
-        let eliminado = await extrasModel.deleteOne({_id:id})
+            return res.status(404).json({ error: "Extra no encontrado" });
+        }
+        await extrasModel.deleteOne({ _id: id });
+        res.status(204).send();
     } catch (error) {
-        res.json(error)
+        res.status(500).json({ error: error.message });
     }
-}
+};
