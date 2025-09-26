@@ -6,6 +6,7 @@ const { getCreateProduct, getOneCreateProduct, createProduct, updateProduct, del
 const { getUsers, getOneUser, createUser, updateUser, deleteUser } = require('../controllers/user.controller')
 const { login } = require('../controllers/login.controller')
 const { middlewareJWT } = require('../middleware/jwt')
+const { createCarrito, getCarritos, getOneCarrito, updateCarrito, deleteCarrito } = require('../controllers/carrito.controller')
 const router = express.Router()
 
 //------- RUTAS CAMBIOS Y DEVOLUCIONES ------> 
@@ -37,8 +38,6 @@ router.get('/product/:id', getOneCreateProduct)
 router.put('/product/:id', updateProduct)
 router.delete('/product/:id', deleteProduct)
 
-
-
 // ------------------- Rutas de users
 
 router.get('/users', getUsers)
@@ -46,6 +45,14 @@ router.get('/user/:id', getOneUser)
 router.post('/createUser', createUser)
 router.put('/updateUser/:id', updateUser)
 router.delete('/deleteUser/:id', deleteUser )
+
+// ------- Rutas carrito 
+
+router.get('/carritos', getCarritos)
+router.get('/carrito/:id', getOneCarrito)
+router.post('/createCarrito', createCarrito)
+router.put('/updateCarrito/:id', updateCarrito)
+router.delete('/deleteCarrito/:id', deleteCarrito)
 
 // -------------------Login
 
